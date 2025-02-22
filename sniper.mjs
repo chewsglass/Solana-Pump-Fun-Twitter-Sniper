@@ -5,19 +5,19 @@ import { struct, u32, u8 } from '@solana/buffer-layout';
 import { u64, publicKey, bool } from "@solana/buffer-layout-utils"
 import BN from "bn.js"
 import bs58 from "bs58"
-const rpcUrl = "https://api.mainnet-beta.solana.com"
+const rpcUrl = "https://api.mainnet-beta.solana.com"           // maybe use a better rpc url 
 const connection = new Connection(rpcUrl)
 const pumpProgram = new PublicKey("6EF8rrecthR5Dkzon8Nwu78hRvfCKubJ14M5uBEwF6P")
 const mpl = new PublicKey("metaqbxxUerdq28cj1RbAWkYQm3ybzjb6a8bt518x1s")
 const wait = ms => new Promise(resolve => setTimeout(resolve, ms))
 const bondingLayout = struct([u64('virtualTokenReserves'), u64('virtualSolReserves'), u64('realTokenReserves'), u64('realSolReserves'), u64('supply'), u8('completed')])
-const privateKey = [123, 123, 123, ...] // get this from solflare -> export private key
-const solAmount = 0.028*10**9
+const privateKey = [123, 123, 123, ...]    // get this from solflare -> export private key
+const solAmount = 0.028*10**9               // your sol amount to snipe with (this will snipe 0.028 sol worth) 
 const wallet = Keypair.fromSecretKey(Uint8Array.from(privateKey))
 const scraper = new Scraper();
 let lastSeenTweetId = null;
 
-await scraper.login('username', 'password');
+await scraper.login('username', 'password');      // enter your twitter login info
 async function login() {
         const tweet = await scraper.getLatestTweet('kanyewest', false);
         if (!tweet || tweet.id === lastSeenTweetId) {
